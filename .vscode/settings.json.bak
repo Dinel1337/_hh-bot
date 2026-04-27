@@ -1,0 +1,18 @@
+{
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        ".*": true,
+        "bin": true,
+        "tox.ini": true,
+        "poetry.lock": true,
+        "pyproject.toml": true,
+        "Dockerfile": true,
+        "README.md": true,
+        "uv.lock": true,
+        "LICENSE": true,
+        ".coverage": true,
+        ".github": true
+    },
+    "python.analysis.typeCheckingMode": "off"
+}
