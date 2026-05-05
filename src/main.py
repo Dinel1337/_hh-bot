@@ -1,34 +1,27 @@
-import os
 import asyncio
-import sys
 import logging
-
-from .config import DEBUG
-from aiogram import Dispatcher, Bot
-from dotenv import load_dotenv 
-
-load_dotenv()
+from aiogram import Bot, Dispatcher
+from .config import Settings
 
 logging.basicConfig(
-    level=logging.INFO if DEBUG else logging.ERROR,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout),
-        logging.FileHandler('bot.log', encoding='utf-8')
-    ]
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
-bot = Bot(os.getenv('BOT_TOKEN'))
+settings = Settings()
+bot = Bot(token=settings.BOT_TOKEN)
 dp = Dispatcher()
 
 async def main():
-    logger.info('Бот стартанул')
+    logger.info("Бот запущен")
     try:
         await dp.start_polling(bot)
-    except:
-        logger.error('Бот умер')
+    except Exception as e:
+        logger.error("Бот упал: %s", e)
     finally:
-        logger.error('Завершена работа')
+        await bot.session.close()
+        logger.info("Бот остановлен")
+
 if __name__ == "__main__":
     asyncio.run(main())

@@ -12,3 +12,8 @@ dependencies = [
     "pydotenv>=0.0.7",
     "redis>=7.4.0",
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.12",
+]
